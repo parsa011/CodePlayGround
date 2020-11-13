@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    padding: 0
+}
+
+.editor {
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 5px 5px;
+    grid-template-areas:
+        "."
+        ".";
+}
+
+.window {
+    padding: 10px;
+    outline: none;
+    border: none;
+    min-width: 100px;
+    min-height: 100px;
+    width: -webkit-fill-available;
+    min-height: 47vh;
+}
+
+.window:not(iframe) {
+    background: #1e1e1e;
+    color: white;
+    font-size: 19px;
+    overflow-y: scroll;
+}
+
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;margin-right: 5px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    background: none;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+    
+}
+
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
