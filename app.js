@@ -1,7 +1,7 @@
 var textAreas = document.querySelectorAll('.code');
 var typingTimer; //timer identifier
 var doneTypingInterval = 1000; //time in ms, 5 second for example
-//var lastChar; // the last typed character
+
 var withTwinCharacter = [16,219,57,222];
 textAreas.forEach(element => {
     element.addEventListener('keydown', e => {
@@ -14,45 +14,10 @@ textAreas.forEach(element => {
         
     });
     element.addEventListener('keyup', e => {
-        
-        var start = document.getSelection().anchorOffset;
-        
-        // if(withTwinCharacter.includes(e.keyCode) && !e.shiftKey)
-        // {
-        //     if (e.key == '{') {
-        //         addTwins(element,"}");
-        //     }
-        //     if (e.key == '[') {
-        //         addTwins(element,"]");
-        //     }
-        //     if (e.key == '<') {
-        //         addTwins(element,">");
-        //     }
-        //     if (e.key == '"') {
-        //         addTwins(element,'"');
-        //     }
-        //     if (e.key == "'") {
-        //         addTwins(element,"'");
-        //     }
-        //     if (e.key == "(") {
-        //         addTwins(element,")");
-        //     }
-          
-        //     var range = document.createRange();
-        //     range.selectNode(element);
-        //     range.setStart(element, start);
-        //     range.setEnd(element, start);
-           
-        //     var sel = window.getSelection();
-        //     sel.removeAllRanges();
-        //     sel.addRange(range);
-
-        // }
-
-        //lastChar = e.Key;
+       
         element.innerHTML.replace("<div><br></div>",'\n');
         element.innerHTML.replace("</br>",'\n');
-       
+
         clearTimeout(typingTimer);
         typingTimer = setTimeout(compile, doneTypingInterval);
     });
@@ -66,12 +31,14 @@ function compile() {
     var css = document.getElementById("css");
     var js = document.getElementById("js");
     var code = document.getElementById("code").contentWindow.document;
-
+    // regex for replace &nbsp; with ' '
+    var re = new RegExp(String.fromCharCode(160), "g");
     code.open();
+    
     code.writeln(
-        html.textContent +
+        html.textContent.replace(re," ") +
         "<style>" +
-        css.textContent +
+        css.textContent.replace(re," ") +
         "</style>"
     );
     if (js.value != lastScript) {
